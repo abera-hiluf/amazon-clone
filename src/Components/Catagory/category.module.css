@@ -1,14 +1,24 @@
-.catagory {
-    height: 350px;
-    width: 350px;
+
+
+  .category {
     background-color: white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+    height: auto;
+    width: 100%;
+    max-width: 300px;  /* max width per card */
+    margin: 0 auto;
   }
+  .category:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  }
+  
   .category img {
     width: 100%;
     object-fit: contain;
-    max-height: 250px;
-    padding: 0px 10px;
+    max-height: 200px;
+    padding: 0 10px;
   }
   
   .category a {
@@ -21,32 +31,35 @@
     padding: 5px;
     margin-left: 15px;
   }
-  .category img {
-  width: 100%;
-  object-fit: contain;
-  max-height: 250px;
-  padding: 0px 10px;
-}
-
-.category a {
-  text-decoration: none;
-  color: rgb(35, 35, 35);
-}
-
-.category h2,
-.category p {
-  padding: 5px;
-  margin-left: 15px;
-}
-.category p{
+  
+  .category p {
     font-size: 12px;
     font-weight: bold;
-    color: rgb(9,132,209);
-}
-.category__container {
-    position: relative;
-    margin-top: -10%;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    place-items: center;
+    color: rgb(9, 132, 209);
   }
+  
+  .category__container {
+    margin-top: 20px; /* less negative margin */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 15px;
+    padding: 0 20px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+  }
+  
+  /* Responsive */
+  @media screen and (max-width: 992px) {
+    .category__container {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media screen and (max-width: 576px) {
+    .category__container {
+      grid-template-columns: 1fr;
+    }
+  }
+  
