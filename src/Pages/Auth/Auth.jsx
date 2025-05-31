@@ -5,7 +5,8 @@ import React, { useState ,useContext} from "react";
 import { Link } from "react-router-dom";
 import { auth } from "../../Utility/firebase"
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth"
-import{DataContext} from "../../Components/DataProvider/DataProvider"
+import { DataContext } from "../../Components/DataProvider/DataProvider"
+import {Type} from "../../Utility/action.type"
 function Auth() {
 
   const [email, setEmail] = useState("");
@@ -19,7 +20,7 @@ function Auth() {
 
 
 
-  // console.log(email)
+  console.log(user)
   const authHandler = async(e) => {
     e.preventDefault();
     // console.log(e.target.name)
@@ -33,7 +34,8 @@ function Auth() {
       })
         
         .catch((error) => {
-        console.log(error)
+          // console.log(error)
+          setError(error.message)
       })
     }
     else {
@@ -45,7 +47,7 @@ function Auth() {
             user: userInfo.user,
           });
         }).catch((err) => {
-        console.log(err)
+          setError(error.message);
       })
     }
 }
@@ -64,25 +66,51 @@ function Auth() {
         <form action="">
           <div>
             <label htmlFor="email">Email</label>
-            <input value={email} onChange={(e)=>setEmail(e.target.value)} type="email" id="email" />
+            <input
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              type="email"
+              id="email"
+              autoComplete="username"
+            />
           </div>
           <div>
             <label htmlFor="password">Password</label>
-            <input value={password} onChange={(e)=>setPassword(e.target.value)} type="password" id="password" />
+            <input
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              type="password"
+              id="password"
+              autoComplete="new-password"
+            />
           </div>
-          <button type="submit" onClick={authHandler} name="signin"
-            className={classes.login__signInButton}>Sign In</button>
+          <button
+            type="submit"
+            onClick={authHandler}
+            name="signin"
+            className={classes.login__signInButton}
+          >
+            Sign In
+          </button>
         </form>
         {/* agreement */}
         <p>
-          By signin-in you agree to join the AMAZON  FAKE CLONE  Condition  of  use & sale -please see our privacy notice ,our cookies Notice and our Interes-Based Ads Notice;
-
+          By signing in, you agree to the terms of the Amazon Fake Clone,
+          including our Conditions of Use and Sale. Please review our Privacy
+          Notice, Cookies Notice, and Interest-Based Ads Notice.
         </p>
         {/* create acoutn btn */}
-        <button type="submit" onClick={authHandler} name="signup"
-          className={classes.logIn__registerButton}>
+        <button
+          type="submit"
+          onClick={authHandler}
+          name="signup"
+          className={classes.logIn__registerButton}
+        >
           Create Your Amazon Acount
         </button>
+        {error && (
+          <small style={{ paddingTop: "5px", color: "red" }}>{error}</small>
+        )}
       </div>
     </section>
   );
