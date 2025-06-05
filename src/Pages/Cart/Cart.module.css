@@ -72,3 +72,17 @@ gap: 5px;
         }
       }
       
+
+      .checkoutBtn {
+  padding: 10px 20px;
+  background-color: #f0c14b;
+  border: 1px solid;
+  border-color: #a88734 #9c7e31 #846a29;
+  color: #111;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+}
+.checkoutBtn:hover {
+  background-color: #ddb347;
+}

@@ -47,12 +47,12 @@ function Cart() {
                   renderAdd={false}
                 />
                 <div className={classes.btn__container}>
-                  <buttonn
+                  <button
                     className={classes.btn}
                     onClick={() => increment(item)}
                   >
                     <MdKeyboardArrowUp size={25}/>
-                  </buttonn>
+                  </button>
                   <span>{item.amount}</span>
                   <button
                     className={classes.btn}

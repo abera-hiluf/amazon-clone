@@ -22,8 +22,12 @@ function ProductCard({ product, flex, renderDesc, renderAdd }) {
         description,
       },
     });
+    console.log("Added item to basket", title);
   };
+  
+  
 
+  console.log(product);
   return (
     <div
       className={`${classes.card__container} ${

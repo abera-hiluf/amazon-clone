@@ -63,14 +63,17 @@ const Header = () => {
           <div className={classes.nav}>
             <Link to="#" className={classes.language}>
               <img
-                src="https://flagcdn.com/us.svg"
+                src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/1024px-Flag_of_the_United_States.svg.png
+"
                 alt="US Flag"
                 className={classes.flag}
               />
-              {/* <span>EN</span> */}
-              <select>
-                <option value="">EN</option>
-              </select>
+              <span style={{ fontWeight: "750", color:"white"}}>EN</span>
+              {/* <select>
+                <option value="" style={{fontWeight:"bold"}}>
+                  EN
+                </option>
+              </select> */}
             </Link>
 
             <Link to={!user && "/auth"} className={classes.navItem}>
