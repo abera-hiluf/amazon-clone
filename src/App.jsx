@@ -4,15 +4,16 @@ import { BrowserRouter as Router } from "react-router-dom";
 import Routing from "./Routing";
 import { Type } from "./Utility/action.type";
 import { auth } from "./Utility/firebase";
+
 function App() {
-  const { state, dispatch } = useContext(DataContext);
+  const { dispatch } = useContext(DataContext);
+
   useEffect(() => {
-    auth.onAuthStateChanged((authUser) => {
+    const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
-        // console.log(authUser)
         dispatch({
           type: Type.SET_USER,
-          user: authUser,
+          user: authUser, // ✅ Correct: use the actual user object
         });
       } else {
         dispatch({
@@ -21,7 +22,10 @@ function App() {
         });
       }
     });
+
+    return () => unsubscribe(); // ✅ Clean up listener on unmount
   }, []);
+
   return (
     <Router>
       <Routing />

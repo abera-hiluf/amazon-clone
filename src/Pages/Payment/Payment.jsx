@@ -6,12 +6,17 @@ import ProductCard from "../../Components/Product/ProductCard";
 import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 import CurrencyFormat from "../../Components/CurrencyFormat/CurrencyFormat";
 import { axiosInstance } from "../../Api/axios";
+import { db } from "../../Utility/firebase";
+import { doc, setDoc } from "firebase/firestore";
+import { Type } from "../../Utility/action.type";
+import { useNavigate } from "react-router-dom";
 
 function Payment() {
   const { state, dispatch } = useContext(DataContext);
   const { basket, user } = state;
   console.log(user);
-
+  const [processing, setProcessing] = useState(false);
+  const navigate = useNavigate();
   const totalItem = basket?.reduce((amount, item) => item.amount + amount, 0);
 
   const total = basket.reduce((amount, item) => {
@@ -25,18 +30,24 @@ function Payment() {
     console.log(e);
     e?.error?.message ? setCardError(e?.error?.message) : setCardError(null);
   };
-  const handlePayment = async(e) => {
+  const handlePayment = async (e) => {
     e.preventDefault();
-    // backend part
     try {
-      const { response } = await axiosInstance({
+      setProcessing(true);
+      const res = await axiosInstance({
         method: "POST",
         url: `/payments/create?total=${total*100}`,
       });
-      console.log(response.data);
-      const clientSecret = response.data?.clientSecret;
-      // client side
-      const confirmation = await stripe.confirmCardPayment(clientSecret,
+      console.log(res.data);
+      const client_secret = res.data?.client_secret;
+      //client side confimation
+      // const confirmation = await stripe.confirmCardPayment(client_secret, {
+      //   payment_method: {
+      //     card: elements.getElement(CardElement),
+      //   },
+      // });
+      const { paymentIntent, error } = await stripe.confirmCardPayment(
+        client_secret,
         {
           payment_method: {
             card: elements.getElement(CardElement),
@@ -44,10 +55,33 @@ function Payment() {
         }
       );
 
+      if (error) {
+        setCardError(error.message);
+        console.error("Stripe confirmation error:", error);
+      } else {
+        console.log("Client Secret used:", client_secret);
+        console.log("Payment Intent Status:", paymentIntent.status);
+        console.log("Payment successful:", paymentIntent);
+      }
+      
+
+      const orderRef = doc(db, "users", user.uid, "orders", paymentIntent.id);
+      await setDoc(orderRef, {
+        basket:basket,
+        amount: paymentIntent.amount,
+        created: paymentIntent.created,
+      });
+      dispatch({
+        type: Type.REMOVE_FROM_BASKET
+      });
+      setProcessing(false);
+      navigate("/order");
     } catch (error) {
+      setProcessing(false);
       console.error("Payment error:", error);
     }
   };
+
   return (
     <>
       {/* header */}
@@ -104,14 +138,16 @@ function Payment() {
                 {/* card__container */}
                 <CardElement onChange={handleChange} />
                 {/* price */}
-                <div className={classes.paymentt__prices}>
+                <div className={classes.payment__prices}>
                   <div>
                     <span style={{ display: "flex", gap: "10px" }}>
                       <p>Total Order | </p> <CurrencyFormat amount={total} />
                     </span>
                   </div>
 
-                  <button  type="submit">Pay Now</button>
+                  <button type="submit">
+                    {processing ? "Processing..." : "Pay Now"}
+                  </button>
                 </div>
               </form>
             </div>

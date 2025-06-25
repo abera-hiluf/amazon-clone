@@ -5,6 +5,7 @@
     background-color: rgb(234,237,237);
 
 }
+
 .Payment{
     padding: 30px;
 
@@ -23,7 +24,7 @@
    
 }
 .flex div{
-    height: auto !important;
+    /* height: auto !important; */
 }
 .payment__card__container{
     max-width: 350px;
@@ -31,9 +32,10 @@
 }
 .payment__details{
     font-size: 20px;
+    min-height: 80px;
 }
               
-.payment__prices >div {
+.payment__prices div {
     display: flex;
     font-size: 16px;
     gap: 10px;;

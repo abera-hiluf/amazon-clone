@@ -7,7 +7,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyBt_ESq5yiSmtfBOOmmwN1GvTz996ULAL4",
   authDomain: "cloning-536ef.firebaseapp.com",
   projectId: "cloning-536ef",
-  storageBucket: "cloning-536ef.firebasestorage.app",
+  storageBucket: "cloning-536ef.firebasestorage.com",
   messagingSenderId: "268215760219",
   appId: "1:268215760219:web:ad963e6a2697209195d67e",
 };
