@@ -1,12 +1,35 @@
-# React + Vite
+# ​ Amazon Clone
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A front-end replica of Amazon designed to offer a real-like shopping experience.
 
-Currently, two official plugins are available:
+##  Features
+- Mimics Amazon's responsive UI and layout.
+- Fully functional shopping cart (add/remove, view items).
+- User authentication via **Firebase Authentication**.
+- Order management with stored receipts/history.
+- Global state handled through **Redux**.
+- Backend deployed on **Render**, connecting user data and purchases.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Expanding the ESLint configuration
+##  Technologies Used
+| Area         | Tech Stack                           |
+|--------------|---------------------------------------|
+| Frontend     | React.js, CSS, Redux                  |
+| Authentication & Database | Firebase                         |
+| Backend (API) | RESTful services, deployed on Render  |
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+##  How to Run Locally
+
+```bash
+# Clone the project
+git clone https://github.com/abera-hiluf/amazon-clone.git
+
+# Navigate inside
+cd amazon-clone
+
+# Install dependencies
+npm install
+
+# Start the development server
+npm run dev
